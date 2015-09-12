@@ -22,6 +22,7 @@ class Item < ActiveRecord::Base
     @mapped_item[:owner_id] = parameters[:item][:owner_id]
     @mapped_item[:quantity] = parameters[:item][:quantity]
     @mapped_item[:price] = parameters[:item][:price]
+    @mapped_item[:description] = parameters[:item][:description]
     @mapped_item.save
   end
 
@@ -32,11 +33,12 @@ class Item < ActiveRecord::Base
   end
 
   def self.edit_an_item parameters
-    @aim_item = Item.find(parameters[:item][:id])
-    @aim_item[:name] = parameters[:item][:name]
-    @aim_item[:price] = parameters[:item][:price]
-    @aim_item[:quantity] = parameters[:item][:quantity]
-    @aim_item.save 
+    @mapped_item = Item.find(parameters[:item][:id])
+    @mapped_item[:name] = parameters[:item][:name]
+    @mapped_item[:price] = parameters[:item][:price]
+    @mapped_item[:quantity] = parameters[:item][:quantity]
+    @mapped_item[:description] = parameters[:item][:description]
+    @mapped_item.save 
   end
 
 end

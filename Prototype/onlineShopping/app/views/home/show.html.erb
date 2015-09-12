@@ -1,0 +1,29 @@
+<h1>Item Info</h1>
+<%= form_for(@item) do |f| %>
+  <div class="field">
+    <%= f.label 'Item name' %><br>
+    <%= f.label @item[:name] %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label 'Item quantity' %><br>
+    <%= f.label @item[:quantity] %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label 'Item price' %><br>
+    <%= f.label @item[:price] %>
+  </div>
+  <br>
+  <div class="field">
+    <%= f.label 'Item description' %><br>
+    <%= f.label @item[:description] %>
+  </div>
+  <br>
+    <div class="field">
+    <%= f.label 'Seller email' %><br>
+    <%= link_to @seller%>
+  </div>
+  <br>
+  <%= link_to "Back", home_index_path%>
+<%end%>

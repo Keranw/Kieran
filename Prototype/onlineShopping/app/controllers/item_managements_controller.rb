@@ -8,6 +8,10 @@ class ItemManagementsController < ApplicationController
     redirect_to item_managements_item_query_path
   end
 
+  def item_show
+    @record = Item.query_with_item_id params[:id]
+  end
+
   def item_new
     @new_item = Item.new
   end

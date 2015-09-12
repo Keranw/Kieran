@@ -7,7 +7,7 @@
   <%= link_to('Register', new_registration_path(:user)) %><br />
   <%= link_to('Login', new_session_path(:user)) %>
 <% end %>
-<h2>显示数据库中所有的商品</h2>
+<h2>All users' items</h2>
   <div name = "list_doby">
     <table name = "my_item_list">
       <thead>
@@ -20,7 +20,7 @@
       <tbody>
       <% @item_list.each do |item| %>
           <tr>       
-              <td><%= item.name %></td>
+              <td><%= link_to item.name, "show/#{item.id}"%></td>
               <td><%= item.price %></td> 
           </tr>
       <% end %>

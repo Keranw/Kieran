@@ -2,6 +2,8 @@
 <div>
   <div name = "list_head">
   <%= link_to 'Create', item_managements_item_new_path%>
+  </br>
+  <%= link_to "Back", home_index_path%>
   <h4>My items</h4>
   </div>
   <div name = "list_doby">
@@ -20,7 +22,7 @@
       <% @items_list.each do |item| %>
           <tr>
               <td><%= count+=1 %></td>         
-              <td><%= item.name %></td>
+              <td><%= link_to item.name, "item_show/#{item.id}"%></td>
               <td><%= item.price %></td>
               <td><%= item.quantity %></td>  
               <td><%= link_to "edit", "item_read/#{item.id}"%>

@@ -5,6 +5,7 @@ class CreateItems < ActiveRecord::Migration
       t.integer :quantity
       t.float :price
       t.integer :owner_id
+      t.string :description
 
       t.timestamps null: false
     end
