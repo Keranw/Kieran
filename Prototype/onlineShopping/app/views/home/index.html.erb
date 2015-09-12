@@ -1,0 +1,29 @@
+<h1>Online shopping system prototype</h1>
+<% if user_signed_in? %>
+  Hello, <%= current_user.email %><br />
+  <%= link_to('Item Manage', item_managements_item_query_path) %><br />
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+<% else %>
+  <%= link_to('Register', new_registration_path(:user)) %><br />
+  <%= link_to('Login', new_session_path(:user)) %>
+<% end %>
+<h2>显示数据库中所有的商品</h2>
+  <div name = "list_doby">
+    <table name = "my_item_list">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% @item_list.each do |item| %>
+          <tr>       
+              <td><%= item.name %></td>
+              <td><%= item.price %></td> 
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>

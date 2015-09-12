@@ -1,0 +1,19 @@
+<h1>Item Create</h1>
+<%= form_for(@new_item, :url => {:action => "item_create"}) do |f| %>
+  <%= f.hidden_field :owner_id, :value => current_user.id %>
+  <div class="field">
+    <%= f.label 'Item name' %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label 'Item quantity' %><br>
+    <%= f.text_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label 'Item price' %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<%end%>

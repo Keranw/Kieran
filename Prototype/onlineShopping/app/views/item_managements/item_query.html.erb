@@ -1,0 +1,33 @@
+<h1>Item Management</h1>
+<div>
+  <div name = "list_head">
+  <%= link_to 'Create', item_managements_item_new_path%>
+  <h4>My items</h4>
+  </div>
+  <div name = "list_doby">
+    <table name = "my_item_list">
+      <thead>
+        <tr>
+          <th>Item Number</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <% count =0 %>
+      <tbody>
+      <% @items_list.each do |item| %>
+          <tr>
+              <td><%= count+=1 %></td>         
+              <td><%= item.name %></td>
+              <td><%= item.price %></td>
+              <td><%= item.quantity %></td>  
+              <td><%= link_to "edit", "item_read/#{item.id}"%>
+              <%= link_to "destroy", "item_destroy/#{item.id}", data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
