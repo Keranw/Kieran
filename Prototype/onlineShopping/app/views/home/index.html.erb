@@ -6,7 +6,6 @@
 <% else %>
   <%= link_to('Register', new_registration_path(:user)) %><br />
   <%= link_to('Login', new_session_path(:user)) %>
-<% end %>
 <h2>All users' items</h2>
   <div name = "list_doby">
     <table name = "my_item_list">
@@ -27,3 +26,4 @@
       </tbody>
     </table>
   </div>
+<%end%>
