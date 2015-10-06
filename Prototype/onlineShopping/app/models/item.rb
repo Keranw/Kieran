@@ -10,6 +10,13 @@ class Item < ActiveRecord::Base
     return @result 
   end
 
+  def self.search search
+    search_condition = "%" + search + "%"
+    @result = Item.find_by_sql("SELECT * FROM items WHERE name LIKE'#{search_condition}'
+      OR description LIKE'#{search_condition}'")
+    return @result
+  end
+
   #delete function in mapper layer
   def self.delete_with_id o_id
     Item.find(o_id).destroy

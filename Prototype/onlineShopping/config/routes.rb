@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   get 'item_managements/item_read/:id' => 'item_managements#item_read'
   get 'item_managements/item_show/:id' => 'item_managements#item_show'
 
+  get 'home/result' => 'home#result'
+  post 'home/search'=> 'home#search'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
