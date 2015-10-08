@@ -20,6 +20,9 @@ Rails.application.routes.draw do
 
   get 'home/result' => 'home#result'
   post 'home/search'=> 'home#search'
+  patch 'home/buy' => 'home#buy'
+  get 'home/trolley' => 'home#trolley'
+  get 'home/delete_item_in_trolley/:id' => "home#delete_item_in_trolley"
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

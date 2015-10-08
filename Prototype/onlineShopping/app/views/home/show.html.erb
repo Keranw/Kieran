@@ -1,29 +1,40 @@
 <h1>Item Info</h1>
-<%= form_for(@item) do |f| %>
+<%= form_for(@item, :url => {:action => "buy"}) do |f| %>
+<%= f.hidden_field :item_id, :value => @item[:id] %>
   <div class="field">
     <%= f.label 'Item name' %><br>
-    <%= f.label @item[:name] %>
+    <%= @item[:name] %>
   </div>
   <br>
   <div class="field">
     <%= f.label 'Item quantity' %><br>
-    <%= f.label @item[:quantity] %>
+    <%= @item[:quantity]%>
   </div>
   <br>
   <div class="field">
     <%= f.label 'Item price' %><br>
-    <%= f.label @item[:price] %>
+    <%= @item[:price] %>
   </div>
   <br>
   <div class="field">
     <%= f.label 'Item description' %><br>
-    <%= f.label @item[:description] %>
+    <%= @item[:description] %>
   </div>
   <br>
     <div class="field">
     <%= f.label 'Seller email' %><br>
     <%= link_to @seller%>
   </div>
+  <% if user_signed_in? %>
+    <br>
+    <%= f.label 'Quantity to buy:' %><br>
+    <% if @item[:quantity]>0%>
+    <%= f.number_field :quantity, value:1, min: 1, max: @item[:quantity]%>
+    <%= submit_tag "Buy" %>
+    <% else %>
+    Sorry, Out of stock now.
+    <%end%>
+  <%end%>
   <br>
   <%= link_to "Back", root_path%>
 <%end%>

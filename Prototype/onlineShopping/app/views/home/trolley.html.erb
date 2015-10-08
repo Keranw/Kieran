@@ -1,0 +1,24 @@
+<h2>My trolley</h2>
+<div name = "list_doby">
+  <table name = "trolley">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <% $item_in_trolley.each do |item| %>
+        <tr>     
+            <td><%= link_to item[:name], "/show/#{item["item_buy"]}"%></td>
+            <td><%= item["quantity_buy"]%></td>>
+            <td><%= item[:total] %></td>
+            <td><%= link_to "Delete", "/home/delete_item_in_trolley/#{item["item_buy"]}"%></td> 
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
