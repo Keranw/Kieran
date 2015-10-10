@@ -26,6 +26,7 @@ class ItemManagementsController < ApplicationController
   end
 
   def item_edit
+
     Item.edit_an_item params
     redirect_to item_managements_item_query_path
   end

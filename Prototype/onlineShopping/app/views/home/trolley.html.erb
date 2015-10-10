@@ -1,24 +1,46 @@
 <h2>My trolley</h2>
 <div name = "list_doby">
-  <table name = "trolley">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Quantity</th>
-        <th>Total Price</th>
-        <th>Action</th>
-      </tr>
-    </thead>
+    <%if !$item_list.empty?%>
+        <%= link_to "Back", home_result_path%>
+    <%else%>
+        <%= link_to "Back", root_path%>
+    <%end%>
 
-    <tbody>
-    <% $item_in_trolley.each do |item| %>
-        <tr>     
-            <td><%= link_to item[:name], "/show/#{item["item_buy"]}"%></td>
-            <td><%= item["quantity_buy"]%></td>>
-            <td><%= item[:total] %></td>
-            <td><%= link_to "Delete", "/home/delete_item_in_trolley/#{item["item_buy"]}"%></td> 
-        </tr>
-    <% end %>
-    </tbody>
-  </table>
+    <% if !$item_in_trolley.empty?%>
+        <%= link_to "Clear", home_trolley_clear_path%>
+    <table name = "my_item_list">
+        <thead>
+            <tr>
+              <th>Purchase</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <%= form_tag(home_trolley_purchase_path) do %>
+                <% for item in $item_in_trolley%>
+                  <% aim = 0%>
+                  <% for iqi in session[:item] %>
+                    <% aim = iqi.values[1] if iqi.values[0].to_i.eql?(item[:id])%>
+                  <% end %>
+                  <tr>
+                    <td><%= check_box_tag "task_ids[]", item[:id] %></td>
+                    <td><%= link_to item.name, "/show/#{item.id}" %></td>
+                    <td><%= item[:price]%></td>
+                    <td><%= aim%></td>
+                    <td><%= item[:price]*aim.to_f%></td>
+                    <td><%= link_to "Delete", "/home/delete_item_in_trolley/#{item[:id]}"%></td>
+                  </tr>
+                <% end %>
+                <%= submit_tag "Purchase checked items"%>
+            <% end%>
+        </tbody>
+    </table>
+    <% else%>
+        <h3>No item in trolley</h3>
+    <% end%>
 </div>

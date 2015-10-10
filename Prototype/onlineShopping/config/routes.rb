@@ -17,12 +17,14 @@ Rails.application.routes.draw do
   patch 'item_managements/item_edit' => 'item_managements#item_edit'
   get 'item_managements/item_read/:id' => 'item_managements#item_read'
   get 'item_managements/item_show/:id' => 'item_managements#item_show'
-
+  get 'home' => 'home#index'
   get 'home/result' => 'home#result'
   post 'home/search'=> 'home#search'
   patch 'home/buy' => 'home#buy'
   get 'home/trolley' => 'home#trolley'
   get 'home/delete_item_in_trolley/:id' => "home#delete_item_in_trolley"
+  get 'home/trolley_clear' => "home#trolley_clear"
+  post 'home/trolley_purchase' => "home#trolley_purchase"
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
