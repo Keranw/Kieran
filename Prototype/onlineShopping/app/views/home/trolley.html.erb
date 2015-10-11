@@ -1,10 +1,6 @@
 <h2>My trolley</h2>
 <div name = "list_doby">
-    <%if !$item_list.empty?%>
-        <%= link_to "Back", home_result_path%>
-    <%else%>
-        <%= link_to "Back", root_path%>
-    <%end%>
+    <%= link_to "Back", root_path%>
 
     <% if !$item_in_trolley.empty?%>
         <%= link_to "Clear", home_trolley_clear_path%>
@@ -28,7 +24,7 @@
                     <% aim = iqi.values[1] if iqi.values[0].to_i.eql?(item[:id])%>
                   <% end %>
                   <tr>
-                    <td><%= check_box_tag "task_ids[]", item[:id] %></td>
+                    <td><%= check_box_tag "item_id[]", item[:id] %></td>
                     <td><%= link_to item.name, "/show/#{item.id}" %></td>
                     <td><%= item[:price]%></td>
                     <td><%= aim%></td>
@@ -36,8 +32,8 @@
                     <td><%= link_to "Delete", "/home/delete_item_in_trolley/#{item[:id]}"%></td>
                   </tr>
                 <% end %>
-                <%= submit_tag "Purchase checked items"%>
-            <% end%>
+               <%= submit_tag "Purchase checked items"%> 
+            <% end %>
         </tbody>
     </table>
     <% else%>

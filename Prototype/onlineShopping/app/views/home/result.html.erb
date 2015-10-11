@@ -3,6 +3,8 @@
   Hello, <%= current_user.email %><br />
   <%= link_to('Trolley', home_trolley_path) %><br />
   <%= link_to('Item Manage', item_managements_item_query_path) %><br />
+   <%= link_to('My Orders', order_my_orders_path) %><br />
+   <%= link_to('Pending Orders', order_pending_orders_path) %><br />
   <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
 <% else %>
   

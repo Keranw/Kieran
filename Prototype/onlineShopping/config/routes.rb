@@ -25,7 +25,11 @@ Rails.application.routes.draw do
   get 'home/delete_item_in_trolley/:id' => "home#delete_item_in_trolley"
   get 'home/trolley_clear' => "home#trolley_clear"
   post 'home/trolley_purchase' => "home#trolley_purchase"
-
+  get 'order/my_orders' => 'orders#my_orders'
+  get 'order/ask_cancel' => 'orders#ask_cancel'
+  get 'order/pending_orders' => 'orders#pending_orders'
+  get 'order/order_management' => 'orders#order_management'
+  get 'order/approve_cancel' => 'orders#approve_cancel'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

@@ -66,13 +66,41 @@ class HomeController < ApplicationController
   end
 
   def trolley_purchase
-    puts "&&&&&&&&&&&&&&"
-    #要买的物品的id在params里
-    puts params.inspect
-    puts "________________"
-    #要买的数量在session里
-    puts session[:item].inspect
-    puts "&&&&&&&&&&&&" 
+    @order_info = {}
+    @totalprice = 0
+    @items = []
+    params["item_id"].each do |aim_item_info|  
+      aim_item = Item.find(aim_item_info.to_i)
+      aim_item_session = nil
+      session[:item].each do |temp|
+        if aim_item[:id].eql?(temp["item_buy"].to_i)
+          aim_item_session = temp
+        end
+      end
+      aim_item_quantity = aim_item_session["quantity_buy"].to_i
+      if aim_item[:quantity] < aim_item_quantity
+        flash[:error] = "Only #{aim_item[:quantity]} #{aim_item[:name]} left, please modify your order."
+      else
+        #update the quantity info
+        aim_item[:quantity] = aim_item[:quantity] - aim_item_quantity
+        @totalprice = @totalprice + aim_item[:price] * aim_item_quantity
+        @items << aim_item_session
+      end
+    end
+    @order_info["buyer"] = current_user[:id]
+    @order_info["items"] = @items
+    @order_info["totalprice"] = @totalprice
+    
+    Order.create_order @order_info
+    flash[:success] = "A new order has been created!"
+
+    params["item_id"].each do |delete_aim|
+      session[:item].each do |delete_session|
+        if delete_session["item_buy"].to_i.eql?(delete_aim.to_i)
+          session[:item].delete(delete_session)
+        end
+      end
+    end
     redirect_to home_trolley_path
   end
 end

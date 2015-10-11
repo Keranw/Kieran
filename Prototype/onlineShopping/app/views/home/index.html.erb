@@ -1,9 +1,18 @@
 <h1>Online shopping system prototype</h1>
-<% if user_signed_in? %>
-  Hello, <%= current_user.email %><br />
-  <%= link_to('Trolley', home_trolley_path) %><br />
-  <%= link_to('Item Manage', item_managements_item_query_path) %><br />
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+
+<% if user_signed_in?%>
+  <% @user = User.find(current_user[:id])  %>
+  <% if @user[:admin] == false%>
+    Hello, <%= current_user.email %><br />
+    <%= link_to('Trolley', home_trolley_path) %><br />
+    <%= link_to('Item Manage', item_managements_item_query_path) %><br />
+    <%= link_to('My Orders', order_my_orders_path) %><br />
+    <%= link_to('Pending Orders', order_pending_orders_path) %><br />
+    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+  <%else%>
+    <%= link_to('Order Management', order_order_management_path)%><br/>
+    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+  <%end%>
 <% else %>
   <%session[:item] = []%>
   <%= link_to('Register', new_registration_path(:user)) %><br />

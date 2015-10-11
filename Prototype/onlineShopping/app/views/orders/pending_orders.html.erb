@@ -1,0 +1,41 @@
+<h1>Orders</h1>
+<div>
+  <div name = "order_list_head">
+  <%= link_to "Back", root_path%>
+  <h4>Pengding orders</h4>
+  </div>
+  <div name = "list_doby">
+  <% if !@pending_orders.empty?%>
+    <table name = "my_orders_list">
+      <thead>
+        <tr>
+          <th>OrderID</th>
+          <th>Items</th>
+          <th>CreatedTime</th>
+          <th>CancelTime</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @pending_orders.each do |order| %>
+        <% temp_list = eval order[:items]%>
+        <% content = ""%>
+        <% temp_list.each do |item|%>
+          <% aim_item = Item.find(item["item_buy"])%>
+          <% content = content + aim_item[:name] + "*" +item["quantity_buy"] + " "%>
+        <% end%>
+          <tr>
+              <td><%= order[:id] %></td>   
+              <td><%= content%></td>      
+              <td><%= order[:purchasetime]%></td>
+              <td><%= order[:created_at]%></td>
+              <td><%= order[:totalprice] %></td> 
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%else%>
+    <h3>You don't have any orders now</h3>
+    <%end%>
+  </div>
+</div>

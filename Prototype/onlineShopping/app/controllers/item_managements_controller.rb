@@ -10,6 +10,11 @@ class ItemManagementsController < ApplicationController
 
   def item_show
     @record = Item.query_with_item_id params[:id]
+    if !@record[:owner_id].eql?(current_user.id)
+      redirect_to item_managements_item_query_path
+    else
+      flash[:error] = "This item doesn't belong to you!"
+    end
   end
 
   def item_new
@@ -26,7 +31,6 @@ class ItemManagementsController < ApplicationController
   end
 
   def item_edit
-
     Item.edit_an_item params
     redirect_to item_managements_item_query_path
   end
