@@ -1,4 +1,5 @@
 class PendingOrder < ActiveRecord::Base
+  #create a new pending order in the database
   def self.createPendingOrder order
     @porder = PendingOrder.new
     @porder[:buyer] = order[:buyer]
@@ -8,15 +9,18 @@ class PendingOrder < ActiveRecord::Base
     @porder.save
   end
 
+  #find the pending order with its id
   def self.pendingOrder id
     @porders = PendingOrder.where(:buyer => id)
     return @porders
   end
 
+  #list all pending orders
   def self.all_orders
     return PendingOrder.all
   end
 
+  #delete the selected pending order
   def self.approve id
     @aim = PendingOrder.find(id.to_i)
     @item_list = eval @aim[:items]
