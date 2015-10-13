@@ -13,10 +13,10 @@ class ItemManagementsController < ApplicationController
   #show detail info of a selected item (editable)
   def item_show
     @record = Item.query_with_item_id params[:id]
-    if !@record[:owner_id].eql?(current_user.id)
-      redirect_to item_managements_item_query_path
+    if @record[:owner_id].eql?(current_user.id)
     else
       flash[:error] = "This item doesn't belong to you!"
+      redirect_to root_path
     end
   end
 
@@ -34,6 +34,11 @@ class ItemManagementsController < ApplicationController
   #show detail info of a selected item (can't edit)
   def item_read
     @record = Item.query_with_item_id params[:id]
+    if @record[:owner_id].eql?(current_user.id)
+    else
+      flash[:error] = "This item doesn't belong to you!"
+      redirect_to root_path
+    end
   end
 
   #udpate the info of an item

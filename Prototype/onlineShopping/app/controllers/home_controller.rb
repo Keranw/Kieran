@@ -10,6 +10,7 @@ class HomeController < ApplicationController
   def show
     @item = Item.query_with_item_id params[:id]
     @seller = User.find(@item[:owner_id])[:email]
+    @buyer = current_user
   end
 
   #find the items with the key word
@@ -77,8 +78,13 @@ class HomeController < ApplicationController
   def trolley_purchase
     @order_info = {}
     @totalprice = 0
+    @flag = true
     params["item_id"].each do |aim_item_info|  
       aim_item = Item.find(aim_item_info.to_i)
+      if aim_item[:owner_id].eql?current_user[:id]
+        @flag = false
+        flash[:error] = "You can't buy your own item #{aim_item[:name]}, please modify your order."
+      end
       aim_item_session = nil
       session[:item].each do |temp|
         if aim_item[:id].eql?(temp["item_buy"].to_i)
@@ -89,25 +95,29 @@ class HomeController < ApplicationController
       # if a buyer wants to get more than the seller has, the system throws an error
       if aim_item[:quantity] < aim_item_quantity
         flash[:error] = "Only #{aim_item[:quantity]} #{aim_item[:name]} left, please modify your order."
+        @flag = false
       else
         @totalprice = @totalprice + aim_item[:price] * aim_item_quantity
       end
     end
-    @items = Order.purchase(params["item_id"], session[:item])
-    @order_info["buyer"] = current_user[:id]
-    @order_info["items"] = @items
-    @order_info["totalprice"] = @totalprice
-    
-    Order.create_order @order_info
-    flash[:success] = "A new order has been created!"
 
-    #delete purchased items in the session
-    params["item_id"].each do |delete_aim|
-      session[:item].each do |delete_session|
-        if delete_session["item_buy"].to_i.eql?(delete_aim.to_i)
-          session[:item].delete(delete_session)
+    if @flag
+    ##########################################################
+      @items = Order.purchase(params["item_id"], session[:item])
+      @order_info["buyer"] = current_user[:id]
+      @order_info["items"] = @items
+      @order_info["totalprice"] = @totalprice
+      Order.create_order @order_info
+      flash[:success] = "A new order has been created!"
+      #delete purchased items in the session#################
+      params["item_id"].each do |delete_aim|
+        session[:item].each do |delete_session|
+          if delete_session["item_buy"].to_i.eql?(delete_aim.to_i)
+            session[:item].delete(delete_session)
+          end
         end
       end
+    #######################################################
     end
     redirect_to home_trolley_path
   end

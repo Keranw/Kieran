@@ -3,7 +3,7 @@
   <% @user = User.find(current_user[:id])  %>
   <% if @user[:admin] == false%>
     Hello, <%= current_user.email %><br />
-    <%= link_to('Trolley', home_trolley_path) %><br />
+    <%= link_to('Trolley', home_trolley_path, data: { no_turbolink: true }) %><br />
     <%= link_to('Item Manage', item_managements_item_query_path) %><br />
     <%= link_to('My Orders', order_my_orders_path) %><br />
     <%= link_to('Pending Orders', order_pending_orders_path) %><br />

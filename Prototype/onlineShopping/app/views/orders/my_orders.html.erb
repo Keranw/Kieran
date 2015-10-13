@@ -22,7 +22,7 @@
         <% content = ""%>
         <% temp_list.each do |item|%>
           <% aim_item = Item.find(item["item_buy"])%>
-          <% content = content + aim_item[:name] + "*" +item["quantity_buy"] + " "%>
+          <% content = content + aim_item[:name] + "*" +item["quantity_buy"].to_s + " "%>
         <% end%>
           <tr>
               <td><%= order[:id] %></td>   
